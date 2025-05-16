@@ -30,10 +30,11 @@ func main() {
 
   //Generar nom de l'arxiu
   currentTime := time.Now().Format("2006-01-02_15:04:05") //Mascara de YYYY-mm-dd HH-minmin-ss
-  filepath.Join(logDir, fmt.Sprintf("commits_%s.txt", currentTime))
+  logFile:= filepath.Join(logDir, fmt.Sprintf("commits_%s.txt", currentTime))
 
  //Escriure l'arxiu
- err:= fmt.Sprintf("S'han escrit els ultims 3 commits del repositori:\n%s", string(out))
+ contingut := fmt.Sprintf("S'han escrit els ultims 3 commits del repositori:\n%s", string(out))
+ err = os.WriteFile(logFile, []byte(contingut), 0644)
  if err != nil {
    fmt.Printf("S'ha produit un error creant en %s %v\n", logFile, err)
    os.Exit(1)
